@@ -45,6 +45,20 @@ class Auth extends React.Component {
                     isPassword: true,
                 },
             },
+            confirmPassword: {
+                value: '',
+                isValid: false,
+                validationRules: {
+                    isPassword: true,
+                },
+            },
+            homeAddress: {
+                value: '',
+                isValid: false,
+                validationRules: {
+                    isAddress: true,
+                },
+            },
         },
         authMode: 'login',
     }
@@ -54,7 +68,7 @@ class Auth extends React.Component {
         const {
             inputs: {
                 email: { value: emailValue },
-                password: { value: passwordValue }
+                password: { value: passwordValue },
             }
         } = this.state;
         const data = {
@@ -88,12 +102,10 @@ class Auth extends React.Component {
         const { loginLoading } = this.state;
         const {
             inputs: {
-                email: {
-                    value: emailValue
-                },
-                password: {
-                    value: passwordValue
-                }
+                email: { value: emailValue },
+                password: { value: passwordValue },
+                confirmPassword: { value: confirmPasswordValue },
+                homeAddress: { value: homeAddressValue },
             },
             authMode,
         } = this.state;
@@ -133,16 +145,16 @@ class Auth extends React.Component {
                     />
                     <CustomInput
                         placeholder="Confirm your password.."
-                        onChangeText={(value) => this.inputChangeHandler('password', value)}
-                        value={passwordValue}
+                        onChangeText={(value) => this.inputChangeHandler('confirmPassword', value)}
+                        value={confirmPasswordValue}
                         autoCorrect={false}
                         secureTextEntry={true}
                         autoCapitalize="none"
                     />
                     <CustomInput
                         placeholder="Your home address.."
-                        onChangeText={(value) => this.inputChangeHandler('password', value)}
-                        value={passwordValue}
+                        onChangeText={(value) => this.inputChangeHandler('homeAddress', value)}
+                        value={homeAddressValue}
                         autoCorrect={false}
                         autoCapitalize="none"
                     />
