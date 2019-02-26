@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, ScrollView, KeyboardAvoidingView } from 'react-native';
 import { connect } from 'react-redux';
 
 import BookmarkPlace from '../../components/BookmarkPlace/BookmarkPlace';
@@ -68,29 +68,31 @@ class ShareAPlace extends React.Component {
 
         return (
             <SafeAreaView style={{ flex: 1 }}>
-                <ScrollView>
-                    <View style={styles.container}>
-                        <View style={styles.screenIntroContainer}>
-                            <ScreenIntro
-                                heading="Share Awesome Place"
-                                description="Add a picture of the place you want to share, name it, and pick it on map"
-                                icon={locationImage}
-                                iconStyle={{ height: 43, marginBottom: 8 }}
-                                containerStyle={{ paddingTop: 0 }}
+                <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
+                    <ScrollView>
+                        <View style={styles.container}>
+                            <View style={styles.screenIntroContainer}>
+                                <ScreenIntro
+                                    heading="Share Awesome Place"
+                                    description="Add a picture of the place you want to share, name it, and pick it on map"
+                                    icon={locationImage}
+                                    iconStyle={{ height: 43, marginBottom: 8 }}
+                                    containerStyle={{ paddingTop: 0 }}
+                                />
+                            </View>
+
+                            {errorOccured
+                                ? <Text style={styles.errorMessage}>You cannot insert an empty place name.</Text>
+                                : null}
+
+                            <BookmarkPlace
+                                placeName={placeName}
+                                changePlaceHandler={this.changePlaceHandler}
+                                addBookmarkHandler={this.addBookmarkHandler}
                             />
                         </View>
-
-                        {errorOccured
-                            ? <Text style={styles.errorMessage}>You cannot insert an empty place name.</Text>
-                            : null}
-
-                        <BookmarkPlace
-                            placeName={placeName}
-                            changePlaceHandler={this.changePlaceHandler}
-                            addBookmarkHandler={this.addBookmarkHandler}
-                        />
-                    </View>
-                </ScrollView>
+                    </ScrollView>
+                </KeyboardAvoidingView>
             </SafeAreaView>
         );
     };

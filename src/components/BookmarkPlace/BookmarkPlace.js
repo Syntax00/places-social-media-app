@@ -35,7 +35,7 @@ const BookmarkPlace = props => {
                     <CustomButton
                         pressAction={addBookmarkHandler}
                         icon="caret-right"
-                        containerStyle={{ backgroundColor: '#f7cb1b'}}
+                        containerStyle={{ backgroundColor: '#f7cb1b' }}
                     >Next</CustomButton>
                 </View>
             </ShadowedWrapper>

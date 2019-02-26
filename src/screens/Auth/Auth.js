@@ -5,7 +5,8 @@ import {
     ImageBackground,
     ActivityIndicator,
     TouchableOpacity,
-    ScrollView
+    ScrollView,
+    KeyboardAvoidingView,
 } from 'react-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -118,21 +119,32 @@ class Auth extends React.Component {
                         placeholder="Insert your email.."
                         onChangeText={(value) => this.inputChangeHandler('email', value)}
                         value={emailValue}
+                        autoCorrect={false}
+                        autoCapitalize="none"
+                        keyboardType="email-address"
                     />
                     <CustomInput
                         placeholder="Insert your password.."
                         onChangeText={(value) => this.inputChangeHandler('password', value)}
                         value={passwordValue}
+                        autoCorrect={false}
+                        secureTextEntry={true}
+                        autoCapitalize="none"
                     />
                     <CustomInput
                         placeholder="Confirm your password.."
                         onChangeText={(value) => this.inputChangeHandler('password', value)}
                         value={passwordValue}
+                        autoCorrect={false}
+                        secureTextEntry={true}
+                        autoCapitalize="none"
                     />
                     <CustomInput
                         placeholder="Your home address.."
                         onChangeText={(value) => this.inputChangeHandler('password', value)}
                         value={passwordValue}
+                        autoCorrect={false}
+                        autoCapitalize="none"
                     />
 
                     <CustomButton
@@ -155,11 +167,17 @@ class Auth extends React.Component {
                         placeholder="Insert your email.."
                         onChangeText={(value) => this.inputChangeHandler('email', value)}
                         value={emailValue}
+                        autoCorrect={false}
+                        autoCapitalize="none"
+                        keyboardType="email-address"
                     />
                     <CustomInput
                         placeholder="Insert your password.."
                         onChangeText={(value) => this.inputChangeHandler('password', value)}
                         value={passwordValue}
+                        autoCorrect={false}
+                        secureTextEntry={true}
+                        autoCapitalize="none"
                     />
 
                     <CustomButton
@@ -179,31 +197,33 @@ class Auth extends React.Component {
         return (
             <View style={styles.authContainer}>
                 <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
-                    <ScrollView>
-                        <View style={styles.mainContent}>
-                            {backButtonContent}
+                    <KeyboardAvoidingView behavior="padding">
+                        <ScrollView>
+                            <View style={styles.mainContent}>
+                                {backButtonContent}
 
-                            <LogoBlock />
+                                <LogoBlock />
 
-                            {formHeading}
+                                {formHeading}
 
-                            {loginLoading ? <ActivityIndicator size="small" color="#fff" /> : authForm}
+                                {loginLoading ? <ActivityIndicator size="small" color="#fff" /> : authForm}
 
-                            {authMode === 'login' && (<Aux>
-                                <LinedHeading
-                                    lineWidth="22%"
-                                    titleWidth="40%"
-                                >Or</LinedHeading>
-                                <View style={styles.inputContainer}>
-                                    <CustomButton
-                                        pressAction={this.switchLoginMode}
-                                        icon="user-plus"
-                                        containerStyle={{ backgroundColor: '#9bcbff' }}
-                                    >Create New Account</CustomButton>
-                                </View>
-                            </Aux>)}
-                        </View>
-                    </ScrollView>
+                                {authMode === 'login' && (<Aux>
+                                    <LinedHeading
+                                        lineWidth="22%"
+                                        titleWidth="40%"
+                                    >Or</LinedHeading>
+                                    <View style={styles.inputContainer}>
+                                        <CustomButton
+                                            pressAction={this.switchLoginMode}
+                                            icon="user-plus"
+                                            containerStyle={{ backgroundColor: '#9bcbff' }}
+                                        >Create New Account</CustomButton>
+                                    </View>
+                                </Aux>)}
+                            </View>
+                        </ScrollView>
+                    </KeyboardAvoidingView>
                 </ImageBackground>
             </View>
         );
