@@ -81,14 +81,11 @@ class ShareAPlace extends React.Component {
                                 />
                             </View>
 
-                            {errorOccured
-                                ? <Text style={styles.errorMessage}>You cannot insert an empty place name.</Text>
-                                : null}
-
                             <BookmarkPlace
                                 placeName={placeName}
                                 changePlaceHandler={this.changePlaceHandler}
                                 addBookmarkHandler={this.addBookmarkHandler}
+                                errorOccured={errorOccured}
                             />
                         </View>
                     </ScrollView>
