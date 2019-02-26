@@ -19,16 +19,6 @@ const BookmarkPlaceStyles = {
         width: '90%',
         padding: 12,
     },
-    errorMessage: {
-        backgroundColor: '#fff2f2',
-        color: '#ffb7b7',
-        width: '100%',
-        padding: 12,
-        borderRadius: 20,
-        overflow: 'hidden',
-        textAlign: 'center',
-        marginVertical: 10
-    },
 };
 
 export default BookmarkPlaceStyles;

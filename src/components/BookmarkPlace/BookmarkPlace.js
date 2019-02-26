@@ -3,12 +3,12 @@ import { View, StyleSheet, Image } from 'react-native';
 
 import ShadowedWrapper from '../UI/ShadowedWrapper/ShadowedWrapper';
 import CustomInput from '../UI/CustomInput/CustomInput';
-import MainText from '../UI/MainText/MainText';
 import CustomButton from '../UI/CustomButton/CustomButton';
 
 import mapImage from '../../assets/map.png';
 
 import BookmarkPlaceStyles from './BookmarkPlaceStyles';
+import FeedbackMessage from '../UI/FeedbackMessage/FeedbackMessage';
 
 const styles = StyleSheet.create(BookmarkPlaceStyles);
 
@@ -34,7 +34,7 @@ const BookmarkPlace = props => {
                         iconStyle={{ color: '#bbb' }}
                     >Upload Place Image</CustomButton>
                     {errorOccured
-                        ? <MainText style={styles.errorMessage}>You cannot insert an empty place name.</MainText>
+                        ? <FeedbackMessage message="You cannot insert empty place's name" type="error" />
                         : null}
                     <CustomButton
                         pressAction={addBookmarkHandler}
