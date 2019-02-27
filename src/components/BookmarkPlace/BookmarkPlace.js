@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import MapView from 'react-native-maps';
 
 import ShadowedWrapper from '../UI/ShadowedWrapper/ShadowedWrapper';
 import CustomInput from '../UI/CustomInput/CustomInput';
@@ -13,12 +14,20 @@ import FeedbackMessage from '../UI/FeedbackMessage/FeedbackMessage';
 const styles = StyleSheet.create(BookmarkPlaceStyles);
 
 const BookmarkPlace = props => {
-    const { placeName, changePlaceHandler, addBookmarkHandler, errorOccured } = props;
+    const {
+        placeName,
+        changePlaceHandler,
+        addBookmarkHandler,
+        errorOccured,
+        focusedRegion,
+    } = props;
 
     return (
         <View style={styles.bookmarkContainer}>
             <ShadowedWrapper>
-                <Image source={mapImage} style={styles.mapImage} />
+                <MapView
+                    initialRegion={focusedRegion}
+                    style={styles.map} />
                 <View style={styles.inputContainer}>
                     <CustomInput
                         placeholder="Insert place's name ..."

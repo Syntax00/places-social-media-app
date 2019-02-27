@@ -191,7 +191,6 @@ class Auth extends React.Component {
                         secureTextEntry={true}
                         autoCapitalize="none"
                     />
-
                     <CustomButton
                         pressAction={this.loginHandler}
                         icon='sign-in'

@@ -1,5 +1,12 @@
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, ScrollView, KeyboardAvoidingView } from 'react-native';
+import {
+    View,
+    StyleSheet,
+    SafeAreaView,
+    ScrollView,
+    KeyboardAvoidingView,
+    Dimensions
+} from 'react-native';
 import { connect } from 'react-redux';
 
 import BookmarkPlace from '../../components/BookmarkPlace/BookmarkPlace';
@@ -24,6 +31,12 @@ class ShareAPlace extends React.Component {
     state = {
         placeName: '',
         errorOccured: '',
+        focusedRegion: {
+            latitude: 100.7900352,
+            longitude: -122.4013726,
+            latitudeDelta: 0.0122,
+            longitudeDelta: Dimensions.get('window').width / Dimensions.get('window').height * 0.0122,
+        }
     };
 
     onNavButtonPress = event => {
@@ -64,7 +77,7 @@ class ShareAPlace extends React.Component {
     }
 
     render() {
-        const { placeName, errorOccured } = this.state;
+        const { placeName, errorOccured, focusedRegion } = this.state;
 
         return (
             <SafeAreaView style={{ flex: 1 }}>
@@ -86,6 +99,7 @@ class ShareAPlace extends React.Component {
                                 changePlaceHandler={this.changePlaceHandler}
                                 addBookmarkHandler={this.addBookmarkHandler}
                                 errorOccured={errorOccured}
+                                focusedRegion={focusedRegion}
                             />
                         </View>
                     </ScrollView>

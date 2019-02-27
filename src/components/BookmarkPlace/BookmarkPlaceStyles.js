@@ -10,7 +10,7 @@ const BookmarkPlaceStyles = {
         backgroundColor: '#eee',
         padding: 15,
     },
-    mapImage: {
+    map: {
         width: '100%',
         height: 300,
     },
