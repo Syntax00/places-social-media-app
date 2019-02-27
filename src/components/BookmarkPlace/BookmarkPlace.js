@@ -79,7 +79,7 @@ const BookmarkPlace = props => {
                     <CustomButton
                         pressAction={addBookmarkHandler}
                         icon="caret-right"
-                        disabled={!placeName || !locationPicked}
+                        disabled={!placeName || !locationPicked || !selectedImage}
                         containerStyle={{ backgroundColor: '#f7cb1b' }}
                     >Next</CustomButton>
                 </View>
