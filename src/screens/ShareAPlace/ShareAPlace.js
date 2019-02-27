@@ -41,6 +41,7 @@ class ShareAPlace extends React.Component {
         },
         locationPicked: false,
         selectedImage: null,
+        loadingImage: false,
     };
 
     onNavButtonPress = event => {
@@ -112,14 +113,24 @@ class ShareAPlace extends React.Component {
     };
 
     pickPlaceImageHandler = () => {
+        this.setState({
+            loadingImage: true,
+        });
         ImagePicker.showImagePicker({ title: 'Select Place\'s Image' }, response => {
             if (response.didCancel) {
                 console.log('Image picker has been cancelled');
+                this.setState({
+                    loadingImage: false,
+                });
             } else if (response.error) {
                 console.err(response.error);
+                this.setState({
+                    loadingImage: false,
+                });
             } else {
                 this.setState({
                     selectedImage: { uri: response.uri },
+                    loadingImage: false,
                 });
             }
         })
@@ -132,6 +143,7 @@ class ShareAPlace extends React.Component {
             focusedRegion,
             locationPicked,
             selectedImage,
+            loadingImage,
         } = this.state;
 
         return (
@@ -160,6 +172,7 @@ class ShareAPlace extends React.Component {
                                 locateMeHandler={this.getUserLocationHandler}
                                 selectedImage={selectedImage}
                                 triggerImagePicker={this.pickPlaceImageHandler}
+                                loadingImage={loadingImage}
                             />
                         </View>
                     </ScrollView>

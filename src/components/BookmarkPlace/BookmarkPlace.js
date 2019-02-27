@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image, ActivityIndicator } from 'react-native';
 import MapView from 'react-native-maps';
 
 import ShadowedWrapper from '../UI/ShadowedWrapper/ShadowedWrapper';
@@ -24,7 +24,15 @@ const BookmarkPlace = props => {
         locateMeHandler,
         selectedImage,
         triggerImagePicker,
+        loadingImage,
     } = props;
+    let imageContent;
+
+    if (loadingImage) {
+        imageContent = <ActivityIndicator size="small" color="#ccc" />;
+    } else {
+        imageContent = selectedImage && <Image source={selectedImage} style={{ width: '100%', height: 200, borderRadius: 10 }} />
+    }
 
     return (
         <View style={styles.bookmarkContainer}>
@@ -50,7 +58,7 @@ const BookmarkPlace = props => {
                     iconStyle={{ color: '#bbb' }}
                 >Get My Location</CustomButton>
                 <View style={styles.inputContainer}>
-                    {selectedImage && <Image source={selectedImage} style={{ width: '100%', height: 200 }} />}
+                    {imageContent}
                     <MainText style={{
                         paddingVertical: 10,
                         paddingHorizontal: 5,
@@ -60,12 +68,6 @@ const BookmarkPlace = props => {
                     }}>
                         You need to at least insert the place's name and its location in order to bookmark it.
                     </MainText>
-                    <CustomInput
-                        placeholder="Insert place's name ..."
-                        value={placeName}
-                        onChangeText={changePlaceHandler}
-                        style={{ backgroundColor: '#eee', textAlign: 'center', paddingLeft: 0 }}
-                    />
                     <CustomButton
                         pressAction={triggerImagePicker}
                         icon="picture-o"
@@ -73,6 +75,12 @@ const BookmarkPlace = props => {
                         textStyle={{ color: '#bbb', fontWeight: '400' }}
                         iconStyle={{ color: '#bbb' }}
                     >Upload Place Image</CustomButton>
+                    <CustomInput
+                        placeholder="Insert place's name ..."
+                        value={placeName}
+                        onChangeText={changePlaceHandler}
+                        style={{ backgroundColor: '#eee', textAlign: 'center', paddingLeft: 0 }}
+                    />
                     {errorOccured
                         ? <FeedbackMessage message="You cannot insert empty place's name" type="error" />
                         : null}
