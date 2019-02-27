@@ -24,8 +24,9 @@ class ShareAPlace extends React.Component {
     constructor(props) {
         super(props);
         const { navigator } = this.props;
-
+        
         navigator.setOnNavigatorEvent(this.onNavButtonPress);
+        this.getUserLocationHandler();
     }
 
     state = {
@@ -57,8 +58,8 @@ class ShareAPlace extends React.Component {
     }
 
     addBookmarkHandler = () => {
-        const { placeName } = this.state;
-        const { onAddPlace, navigator } = this.props;
+        const { placeName, focusedRegion } = this.state;
+        const { onAddPlace } = this.props;
 
         if (!placeName) {
             this.setState({ errorOccured: 'You cannot insert empty place name.' });
@@ -69,6 +70,10 @@ class ShareAPlace extends React.Component {
                     uri: 'https://images.all-free-download.com/images/wallpapers_large/cairo_egypt_wallpaper_egypt_world_wallpaper_2049.jpg'
                 },
                 key: String(Math.random()),
+                location: {
+                    latitude: focusedRegion.latitude,
+                    longitude: focusedRegion.longitude,
+                },
             });
             this.setState({
                 errorOccured: '',
@@ -89,6 +94,23 @@ class ShareAPlace extends React.Component {
             locationPicked: true,
         }))
     }
+
+    getUserLocationHandler = () => {
+        navigator.geolocation.getCurrentPosition(position => {
+            const event = {
+                nativeEvent: {
+                    coordinate: {
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude,
+                    },
+                },
+            };
+            this.pickPlaceHandler(event);
+        }, error => {
+            console.err(error);
+        });
+    };
+
     render() {
         const { placeName, errorOccured, focusedRegion, locationPicked } = this.state;
 
@@ -115,6 +137,7 @@ class ShareAPlace extends React.Component {
                                 focusedRegion={focusedRegion}
                                 pickPlaceHandler={this.pickPlaceHandler}
                                 locationPicked={locationPicked}
+                                locateMeHandler={this.getUserLocationHandler}
                             />
                         </View>
                     </ScrollView>

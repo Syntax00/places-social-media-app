@@ -5,8 +5,7 @@ import MapView from 'react-native-maps';
 import ShadowedWrapper from '../UI/ShadowedWrapper/ShadowedWrapper';
 import CustomInput from '../UI/CustomInput/CustomInput';
 import CustomButton from '../UI/CustomButton/CustomButton';
-
-import mapImage from '../../assets/map.png';
+import MainText from '../UI/MainText/MainText';
 
 import BookmarkPlaceStyles from './BookmarkPlaceStyles';
 import FeedbackMessage from '../UI/FeedbackMessage/FeedbackMessage';
@@ -22,6 +21,7 @@ const BookmarkPlace = props => {
         focusedRegion,
         pickPlaceHandler,
         locationPicked,
+        locateMeHandler,
     } = props;
 
     return (
@@ -35,7 +35,28 @@ const BookmarkPlace = props => {
                 >
                     {locationPicked && <MapView.Marker coordinate={focusedRegion} />}
                 </MapView>
+                <CustomButton
+                    pressAction={locateMeHandler}
+                    icon="map-marker"
+                    containerStyle={{
+                        backgroundColor: '#eee',
+                        paddingVertical: 14,
+                        borderRadius: 0,
+                        marginTop: 0
+                    }}
+                    textStyle={{ color: '#bbb', fontWeight: '400' }}
+                    iconStyle={{ color: '#bbb' }}
+                >Get My Location</CustomButton>
                 <View style={styles.inputContainer}>
+                    <MainText style={{
+                        paddingVertical: 10,
+                        paddingHorizontal: 5,
+                        color: '#bbb',
+                        fontSize: 12,
+                        textAlign: 'center',
+                    }}>
+                        You need to at least insert the place's name and its location in order to bookmark it.
+                    </MainText>
                     <CustomInput
                         placeholder="Insert place's name ..."
                         value={placeName}
@@ -55,6 +76,7 @@ const BookmarkPlace = props => {
                     <CustomButton
                         pressAction={addBookmarkHandler}
                         icon="caret-right"
+                        disabled={!placeName || !locationPicked}
                         containerStyle={{ backgroundColor: '#f7cb1b' }}
                     >Next</CustomButton>
                 </View>

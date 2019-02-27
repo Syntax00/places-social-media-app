@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet } from 'react-native';
+import { TouchableOpacity, StyleSheet, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import MainText from '../MainText/MainText';
@@ -14,15 +14,23 @@ const CustomButton = ({
     children,
     textStyle,
     icon,
-    iconStyle
-}) => (
-        <TouchableOpacity
-            onPress={pressAction}
-            style={[styles.button, containerStyle]}
-        >
-            <MainText style={[styles.buttonText, textStyle]}>{children}</MainText>
-            {icon && <Icon name={icon} style={[styles.buttonIcon, iconStyle]} />}
-        </TouchableOpacity>
-    )
+    iconStyle,
+    disabled,
+}) => disabled ? (
+    <View
+        style={[styles.button, { backgroundColor: '#ccc' }]}
+    >
+        <MainText style={[styles.buttonText, textStyle]}>{children}</MainText>
+        {icon && <Icon name={icon} style={[styles.buttonIcon, iconStyle]} />}
+    </View>
+) : (
+            <TouchableOpacity
+                onPress={pressAction}
+                style={[styles.button, containerStyle]}
+            >
+                <MainText style={[styles.buttonText, textStyle]}>{children}</MainText>
+                {icon && <Icon name={icon} style={[styles.buttonIcon, iconStyle]} />}
+            </TouchableOpacity>
+        );
 
 export default CustomButton;

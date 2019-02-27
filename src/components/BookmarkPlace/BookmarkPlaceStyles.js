@@ -13,6 +13,7 @@ const BookmarkPlaceStyles = {
     map: {
         width: '100%',
         height: 300,
+        justifyContent: 'flex-end'
     },
     inputContainer: {
         alignItems: 'center',

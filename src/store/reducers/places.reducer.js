@@ -16,6 +16,7 @@ const placesReducer = (state = initialState, action) => {
                     placeName: action.placeData.placeName,
                     placeImage: action.placeData.placeImage,
                     key: action.placeData.key,
+                    location: action.placeData.location,
                 })
             };
         case DELETE_PLACE:
