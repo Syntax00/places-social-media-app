@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Image } from 'react-native';
 import MapView from 'react-native-maps';
 
 import ShadowedWrapper from '../UI/ShadowedWrapper/ShadowedWrapper';
@@ -22,6 +22,8 @@ const BookmarkPlace = props => {
         pickPlaceHandler,
         locationPicked,
         locateMeHandler,
+        selectedImage,
+        triggerImagePicker,
     } = props;
 
     return (
@@ -48,6 +50,7 @@ const BookmarkPlace = props => {
                     iconStyle={{ color: '#bbb' }}
                 >Get My Location</CustomButton>
                 <View style={styles.inputContainer}>
+                    {selectedImage && <Image source={selectedImage} style={{ width: '100%', height: 200 }} />}
                     <MainText style={{
                         paddingVertical: 10,
                         paddingHorizontal: 5,
@@ -64,7 +67,7 @@ const BookmarkPlace = props => {
                         style={{ backgroundColor: '#eee', textAlign: 'center', paddingLeft: 0 }}
                     />
                     <CustomButton
-                        pressAction={addBookmarkHandler}
+                        pressAction={triggerImagePicker}
                         icon="picture-o"
                         containerStyle={{ backgroundColor: '#eee', paddingVertical: 11 }}
                         textStyle={{ color: '#bbb', fontWeight: '400' }}
@@ -81,7 +84,7 @@ const BookmarkPlace = props => {
                     >Next</CustomButton>
                 </View>
             </ShadowedWrapper>
-        </View>
+        </View >
     );
 }
 

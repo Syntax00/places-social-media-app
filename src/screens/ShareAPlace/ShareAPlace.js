@@ -8,6 +8,7 @@ import {
     Dimensions
 } from 'react-native';
 import { connect } from 'react-redux';
+import ImagePicker from 'react-native-image-picker';
 
 import BookmarkPlace from '../../components/BookmarkPlace/BookmarkPlace';
 import ScreenIntro from '../../components/UI/ScreenIntro/ScreenIntro';
@@ -24,7 +25,7 @@ class ShareAPlace extends React.Component {
     constructor(props) {
         super(props);
         const { navigator } = this.props;
-        
+
         navigator.setOnNavigatorEvent(this.onNavButtonPress);
         this.getUserLocationHandler();
     }
@@ -39,6 +40,7 @@ class ShareAPlace extends React.Component {
             longitudeDelta: Dimensions.get('window').width / Dimensions.get('window').height * 0.0122,
         },
         locationPicked: false,
+        selectedImage: null,
     };
 
     onNavButtonPress = event => {
@@ -58,7 +60,7 @@ class ShareAPlace extends React.Component {
     }
 
     addBookmarkHandler = () => {
-        const { placeName, focusedRegion } = this.state;
+        const { placeName, focusedRegion, selectedImage } = this.state;
         const { onAddPlace } = this.props;
 
         if (!placeName) {
@@ -66,9 +68,7 @@ class ShareAPlace extends React.Component {
         } else {
             onAddPlace({
                 placeName,
-                placeImage: {
-                    uri: 'https://images.all-free-download.com/images/wallpapers_large/cairo_egypt_wallpaper_egypt_world_wallpaper_2049.jpg'
-                },
+                placeImage: { uri: selectedImage.uri },
                 key: String(Math.random()),
                 location: {
                     latitude: focusedRegion.latitude,
@@ -111,8 +111,28 @@ class ShareAPlace extends React.Component {
         });
     };
 
+    pickPlaceImageHandler = () => {
+        ImagePicker.showImagePicker({ title: 'Select Place\'s Image' }, response => {
+            if (response.didCancel) {
+                console.log('Image picker has been cancelled');
+            } else if (response.error) {
+                console.err(response.error);
+            } else {
+                this.setState({
+                    selectedImage: { uri: response.uri },
+                });
+            }
+        })
+    }
+
     render() {
-        const { placeName, errorOccured, focusedRegion, locationPicked } = this.state;
+        const {
+            placeName,
+            errorOccured,
+            focusedRegion,
+            locationPicked,
+            selectedImage,
+        } = this.state;
 
         return (
             <SafeAreaView style={{ flex: 1 }}>
@@ -138,6 +158,8 @@ class ShareAPlace extends React.Component {
                                 pickPlaceHandler={this.pickPlaceHandler}
                                 locationPicked={locationPicked}
                                 locateMeHandler={this.getUserLocationHandler}
+                                selectedImage={selectedImage}
+                                triggerImagePicker={this.pickPlaceImageHandler}
                             />
                         </View>
                     </ScrollView>
