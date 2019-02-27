@@ -20,6 +20,8 @@ const BookmarkPlace = props => {
         addBookmarkHandler,
         errorOccured,
         focusedRegion,
+        pickPlaceHandler,
+        locationPicked,
     } = props;
 
     return (
@@ -27,7 +29,12 @@ const BookmarkPlace = props => {
             <ShadowedWrapper>
                 <MapView
                     initialRegion={focusedRegion}
-                    style={styles.map} />
+                    region={focusedRegion}
+                    style={styles.map}
+                    onPress={pickPlaceHandler}
+                >
+                    {locationPicked && <MapView.Marker coordinate={focusedRegion} />}
+                </MapView>
                 <View style={styles.inputContainer}>
                     <CustomInput
                         placeholder="Insert place's name ..."

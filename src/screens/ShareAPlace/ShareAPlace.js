@@ -36,7 +36,8 @@ class ShareAPlace extends React.Component {
             longitude: -122.4013726,
             latitudeDelta: 0.0122,
             longitudeDelta: Dimensions.get('window').width / Dimensions.get('window').height * 0.0122,
-        }
+        },
+        locationPicked: false,
     };
 
     onNavButtonPress = event => {
@@ -76,8 +77,20 @@ class ShareAPlace extends React.Component {
         }
     }
 
+    pickPlaceHandler = event => {
+        const { nativeEvent: { coordinate } } = event;
+
+        this.setState(prevState => ({
+            focusedRegion: {
+                ...prevState.focusedRegion,
+                latitude: coordinate.latitude,
+                longitude: coordinate.longitude,
+            },
+            locationPicked: true,
+        }))
+    }
     render() {
-        const { placeName, errorOccured, focusedRegion } = this.state;
+        const { placeName, errorOccured, focusedRegion, locationPicked } = this.state;
 
         return (
             <SafeAreaView style={{ flex: 1 }}>
@@ -100,6 +113,8 @@ class ShareAPlace extends React.Component {
                                 addBookmarkHandler={this.addBookmarkHandler}
                                 errorOccured={errorOccured}
                                 focusedRegion={focusedRegion}
+                                pickPlaceHandler={this.pickPlaceHandler}
+                                locationPicked={locationPicked}
                             />
                         </View>
                     </ScrollView>
