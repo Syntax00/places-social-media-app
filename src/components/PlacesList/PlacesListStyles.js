@@ -1,6 +1,6 @@
 const PlacesListStyles = {
     placesListContainer: {
-        width: '80%',
+        width: '92%',
         flexGrow: 0,
     },
 };
