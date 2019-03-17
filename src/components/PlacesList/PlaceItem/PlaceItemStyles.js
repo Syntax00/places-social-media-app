@@ -9,7 +9,7 @@ const PlaceItemStyles = {
         paddingBottom: 10,
         flexDirection: 'row',
         alignItems: 'center',
-        borderRadius: 13,
+        borderRadius: 20,
     },
     itemCardImage: {
         width: 50,
