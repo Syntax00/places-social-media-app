@@ -5,10 +5,9 @@ const shadowedWrapperStyles = {
         textAlign: 'center',
         alignItems: 'center',
         shadowColor: '#000',
-        shadowOffset: { width: 0, height: 0 },
-        shadowOpacity: 0.2,
-        shadowRadius: 10,
         marginVertical: 10,
+        borderRadius: 6,
+        overflow: 'hidden',
     },
 };
 

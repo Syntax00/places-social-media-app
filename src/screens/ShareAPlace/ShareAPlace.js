@@ -69,7 +69,7 @@ class ShareAPlace extends React.Component {
         } else {
             onAddPlace({
                 placeName,
-                placeImage: { uri: selectedImage.uri },
+                placeImage: { uri: selectedImage.uri, base64: selectedImage.base64 },
                 key: String(Math.random()),
                 location: {
                     latitude: focusedRegion.latitude,
@@ -108,7 +108,7 @@ class ShareAPlace extends React.Component {
             };
             this.pickPlaceHandler(event);
         }, error => {
-            console.err(error);
+            console.error(error);
         });
     };
 
@@ -123,13 +123,13 @@ class ShareAPlace extends React.Component {
                     loadingImage: false,
                 });
             } else if (response.error) {
-                console.err(response.error);
+                console.error(response.error);
                 this.setState({
                     loadingImage: false,
                 });
             } else {
                 this.setState({
-                    selectedImage: { uri: response.uri },
+                    selectedImage: { uri: response.uri, base64: response.data },
                     loadingImage: false,
                 });
             }
