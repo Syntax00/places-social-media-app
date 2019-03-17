@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 
 import PlacesList from '../../components/PlacesList/PlacesList';
 
+import { getPlaces } from '../../store/actions/index';
+
 import FindPlacesStyles from './FindPlacesStyles';
 
 const styles = StyleSheet.create(FindPlacesStyles);
@@ -17,6 +19,11 @@ class FindPlaces extends React.Component {
         navigator.setOnNavigatorEvent(this.onNavButtonPress);
     }
 
+    componentDidMount() {
+        const { getPlacesData } = this.props;
+        getPlacesData();
+    }
+
     onNavButtonPress = event => {
         if (event.type === 'NavBarButtonPress' && event.id === 'sideDrawerToggler') {
             const { navigator } = this.props;
@@ -27,7 +34,7 @@ class FindPlaces extends React.Component {
 
         }
     }
-    
+
     selectPlaceHandler = (key) => {
         const { bookmarks, navigator } = this.props;
         const selectedPlace = bookmarks.find(bookmark => bookmark.key === key);
@@ -40,9 +47,10 @@ class FindPlaces extends React.Component {
             }
         })
     }
-    
+
     render() {
         const { bookmarks } = this.props;
+
         return (
             <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
                 <View style={styles.container}>
@@ -63,5 +71,10 @@ const mapStateToProps = state => {
         bookmarks: state.placesReducer.bookmarks,
     };
 }
+const mapDispatchToProps = dispatch => {
+    return {
+        getPlacesData: () => dispatch(getPlaces()),
+    };
+}
 
-export default connect(mapStateToProps, null)(FindPlaces);
+export default connect(mapStateToProps, mapDispatchToProps)(FindPlaces);
