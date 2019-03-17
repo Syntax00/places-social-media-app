@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Image, ActivityIndicator } from 'react-native';
 import MapView from 'react-native-maps';
+import { connect } from 'react-redux';
 
 import ShadowedWrapper from '../UI/ShadowedWrapper/ShadowedWrapper';
 import CustomInput from '../UI/CustomInput/CustomInput';
@@ -25,6 +26,7 @@ const BookmarkPlace = props => {
         selectedImage,
         triggerImagePicker,
         loadingImage,
+        submitPlaceLoading,
     } = props;
     let imageContent;
 
@@ -84,16 +86,20 @@ const BookmarkPlace = props => {
                     {errorOccured
                         ? <FeedbackMessage message="You cannot insert empty place's name" type="error" />
                         : null}
-                    <CustomButton
+                    {submitPlaceLoading ? <ActivityIndicator />  : (<CustomButton
                         pressAction={addBookmarkHandler}
-                        icon="caret-right"
+                        icon="plus"
                         disabled={!placeName || !locationPicked || !selectedImage}
                         containerStyle={{ backgroundColor: '#f7cb1b' }}
-                    >Next</CustomButton>
+                    >Add</CustomButton>)}
                 </View>
             </ShadowedWrapper>
         </View >
     );
 }
 
-export default BookmarkPlace;
+const mapStateToProps = state => ({
+    submitPlaceLoading: state.uiReducer.submitPlaceLoading,
+});
+
+export default connect(mapStateToProps)(BookmarkPlace);
