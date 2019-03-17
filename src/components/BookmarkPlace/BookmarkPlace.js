@@ -51,13 +51,13 @@ const BookmarkPlace = props => {
                     pressAction={locateMeHandler}
                     icon="map-marker"
                     containerStyle={{
-                        backgroundColor: '#eee',
+                        backgroundColor: '#f7cb1b',
                         paddingVertical: 14,
                         borderRadius: 0,
                         marginTop: 0
                     }}
-                    textStyle={{ color: '#bbb', fontWeight: '400' }}
-                    iconStyle={{ color: '#bbb' }}
+                    textStyle={{ color: '#FFF', fontWeight: '400' }}
+                    iconStyle={{ color: '#FFF' }}
                 >Get My Location</CustomButton>
                 <View style={styles.inputContainer}>
                     {imageContent}

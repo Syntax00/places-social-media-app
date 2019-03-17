@@ -5,7 +5,8 @@ import {
     SafeAreaView,
     ScrollView,
     KeyboardAvoidingView,
-    Dimensions
+    Dimensions,
+    Image,
 } from 'react-native';
 import { connect } from 'react-redux';
 import ImagePicker from 'react-native-image-picker';
@@ -16,6 +17,11 @@ import ScreenIntro from '../../components/UI/ScreenIntro/ScreenIntro';
 import { addPlace } from '../../store/actions/index';
 
 import locationImage from '../../assets/places.png';
+import placeImagePlaceholder from '../../assets/Wharf-at-night-in-Munich-city-HD-wallpaper-1680x1050.jpg';
+import cairo1Placeholder from '../../assets/cairo1.jpg';
+import cairo2Placeholder from '../../assets/cairo2.jpg';
+import cairo3Placeholder from '../../assets/cairo3.jpg';
+import cairo4Placeholder from '../../assets/cairo4.jpg';
 
 import ShareAPlaceStyles from './ShareAPlaceStyles';
 
@@ -158,7 +164,17 @@ class ShareAPlace extends React.Component {
                                     icon={locationImage}
                                     iconStyle={{ height: 43, marginBottom: 8 }}
                                     containerStyle={{ paddingTop: 0 }}
-                                />
+                                >
+                                    <View style={styles.screenIntroContent}>
+                                        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                                            <Image source={placeImagePlaceholder} style={styles.screenIntroContentImage} />
+                                            <Image source={cairo1Placeholder} style={styles.screenIntroContentImage} />
+                                            <Image source={cairo2Placeholder} style={styles.screenIntroContentImage} />
+                                            <Image source={cairo3Placeholder} style={styles.screenIntroContentImage} />
+                                            <Image source={cairo4Placeholder} style={styles.screenIntroContentImage} />
+                                        </ScrollView>
+                                    </View>
+                                </ScreenIntro>
                             </View>
 
                             <BookmarkPlace
