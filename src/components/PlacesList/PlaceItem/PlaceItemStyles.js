@@ -1,24 +1,26 @@
 const PlaceItemStyles = {
+    placeItem: {
+        marginVertical: 8,
+        borderRadius: 6,
+        overflow: 'hidden',
+    },
     itemCard: {
         backgroundColor: '#FFF',
         padding: 10,
-        marginBottom: 5,
-        marginTop: 5,
         width: '100%',
-        paddingTop: 10,
+        paddingTop: 15,
         paddingBottom: 10,
+        paddingLeft: 20,
         flexDirection: 'row',
         alignItems: 'center',
-        borderRadius: 12,
     },
     itemCardImage: {
-        width: 50,
-        height: 50,
+        width: '100%',
+        height: 150,
         marginRight: 20,
-        borderRadius: 25
     },
     itemCardInfo: {
-        width: '60%',
+        width: '70%',
         alignItems: 'flex-start',
     },
     infoItems: {
@@ -36,7 +38,7 @@ const PlaceItemStyles = {
     },
     starsContainer: {
         flexDirection: 'row',
-        justifyContent: 'flex-start',
+        justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 30,
         width: '30%',
@@ -44,12 +46,12 @@ const PlaceItemStyles = {
     singleMainStar: {
         marginHorizontal: 1,
         color: '#f7cb1b',
-        fontSize: 10,
+        fontSize: 12,
     },
     singleSecondaryStar: {
         marginHorizontal: 1,
         color: '#9bcbff',
-        fontSize: 10,
+        fontSize: 12,
     },
 };
 

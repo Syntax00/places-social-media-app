@@ -16,9 +16,10 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import BookmarkPlace from '../../components/BookmarkPlace/BookmarkPlace';
 import ScreenIntro from '../../components/UI/ScreenIntro/ScreenIntro';
 
+import { addPlace } from '../../store/actions/index';
 
 import locationImage from '../../assets/places.png';
-import placeImagePlaceholder from '../../assets/Wharf-at-night-in-Munich-city-HD-wallpaper-1680x1050.jpg';
+import placeImagePlaceholder from '../../assets/munich.jpg';
 import cairo1Placeholder from '../../assets/cairo1.jpg';
 import cairo2Placeholder from '../../assets/cairo2.jpg';
 import cairo3Placeholder from '../../assets/cairo3.jpg';
@@ -175,6 +176,7 @@ class ShareAPlace extends React.Component {
                                             <Image source={cairo2Placeholder} style={styles.screenIntroContentImage} />
                                             <Image source={cairo3Placeholder} style={styles.screenIntroContentImage} />
                                             <Image source={cairo4Placeholder} style={styles.screenIntroContentImage} />
+                                            <Image source={placeImagePlaceholder} style={styles.screenIntroContentImage} />
                                             <TouchableOpacity onPress={() => {
                                                 navigator.push({
                                                     screen: 'places-bookmarker.FindPlaces',
