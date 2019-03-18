@@ -16,9 +16,9 @@ const ScreenIntro = ({ heading, description, icon, iconStyle, containerStyle, ch
                 <Image source={icon} style={[styles.icon, iconStyle]} />
                 <HeadingText>{heading}</HeadingText>
                 <MainText style={styles.description}>{description}</MainText>
-            </View>
-            <View>
-                {children}
+                <View>
+                    {children}
+                </View>
             </View>
         </ShadowedWrapper>
     );

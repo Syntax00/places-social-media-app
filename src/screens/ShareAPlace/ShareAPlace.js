@@ -7,14 +7,15 @@ import {
     KeyboardAvoidingView,
     Dimensions,
     Image,
+    TouchableOpacity,
 } from 'react-native';
 import { connect } from 'react-redux';
 import ImagePicker from 'react-native-image-picker';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import BookmarkPlace from '../../components/BookmarkPlace/BookmarkPlace';
 import ScreenIntro from '../../components/UI/ScreenIntro/ScreenIntro';
 
-import { addPlace } from '../../store/actions/index';
 
 import locationImage from '../../assets/places.png';
 import placeImagePlaceholder from '../../assets/Wharf-at-night-in-Munich-city-HD-wallpaper-1680x1050.jpg';
@@ -24,6 +25,7 @@ import cairo3Placeholder from '../../assets/cairo3.jpg';
 import cairo4Placeholder from '../../assets/cairo4.jpg';
 
 import ShareAPlaceStyles from './ShareAPlaceStyles';
+import MainText from '../../components/UI/MainText/MainText';
 
 const styles = StyleSheet.create(ShareAPlaceStyles);
 
@@ -151,6 +153,7 @@ class ShareAPlace extends React.Component {
             selectedImage,
             loadingImage,
         } = this.state;
+        const { navigator } = this.props;
 
         return (
             <SafeAreaView style={{ flex: 1 }}>
@@ -172,6 +175,18 @@ class ShareAPlace extends React.Component {
                                             <Image source={cairo2Placeholder} style={styles.screenIntroContentImage} />
                                             <Image source={cairo3Placeholder} style={styles.screenIntroContentImage} />
                                             <Image source={cairo4Placeholder} style={styles.screenIntroContentImage} />
+                                            <TouchableOpacity onPress={() => {
+                                                navigator.push({
+                                                    screen: 'places-bookmarker.FindPlaces',
+                                                    title: 'My Favorite Places',
+                                                    animated: true,
+                                                    animationType: 'fade',
+                                                });
+                                            }}>
+                                                <View style={styles.restButton}>
+                                                    <Icon name="ellipsis-h" style={styles.restButtonDots} />
+                                                </View>
+                                            </TouchableOpacity>
                                         </ScrollView>
                                     </View>
                                 </ScreenIntro>

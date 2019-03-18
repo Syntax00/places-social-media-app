@@ -21,6 +21,23 @@ const ShareAPlaceStyles = {
         borderWidth: 3,
         borderColor: '#f5f5f5',
     },
+    restButton: {
+        backgroundColor: '#eee',
+        width: 45,
+        height: 45,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 22.5,
+        borderWidth: 3,
+        borderColor: '#f5f5f5',
+    },
+    restButtonDots: {
+        alignSelf: 'center',
+        fontSize: 16,
+        color: '#aaa',
+        margin: 0,
+        padding: 0,
+    },
 };
 
 export default ShareAPlaceStyles;

@@ -41,7 +41,7 @@ const startMainApp = () => {
                 },
                 {
                     screen: 'places-bookmarker.FindPlaces',
-                    title: 'Find an Awesome Place',
+                    title: 'My Favorite Places',
                     label: 'Browse',
                     icon: sources[1],
                     navigatorButtons: {

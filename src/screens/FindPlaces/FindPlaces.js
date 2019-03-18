@@ -59,6 +59,7 @@ class FindPlaces extends React.Component {
                         ? <PlacesList
                             bookmarks={bookmarks}
                             selectPlaceHandler={this.selectPlaceHandler}
+                            {...this.props}
                         />
                         : <Text>No places were bookmarked yet</Text>}
                 </View>
