@@ -26,7 +26,6 @@ import cairo3Placeholder from '../../assets/cairo3.jpg';
 import cairo4Placeholder from '../../assets/cairo4.jpg';
 
 import ShareAPlaceStyles from './ShareAPlaceStyles';
-import MainText from '../../components/UI/MainText/MainText';
 
 const styles = StyleSheet.create(ShareAPlaceStyles);
 

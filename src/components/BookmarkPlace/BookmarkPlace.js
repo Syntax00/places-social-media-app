@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, StyleSheet, Image, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, Image, ActivityIndicator, TouchableOpacity } from 'react-native';
 import MapView from 'react-native-maps';
 import { connect } from 'react-redux';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import ShadowedWrapper from '../UI/ShadowedWrapper/ShadowedWrapper';
 import CustomInput from '../UI/CustomInput/CustomInput';
@@ -47,6 +48,7 @@ const BookmarkPlace = props => {
                 >
                     {locationPicked && <MapView.Marker coordinate={focusedRegion} />}
                 </MapView>
+
                 <CustomButton
                     pressAction={locateMeHandler}
                     icon="map-marker"
@@ -59,6 +61,33 @@ const BookmarkPlace = props => {
                     textStyle={{ color: '#FFF', fontWeight: '400' }}
                     iconStyle={{ color: '#FFF' }}
                 >Get My Location</CustomButton>
+
+                <View style={styles.additionalOptionsContainer}>
+                    <TouchableOpacity onPress={triggerImagePicker}>
+                        <View style={styles.additionalOption}>
+                            <Icon name="picture-o" style={styles.additionalOptionIcon} />
+                        </View>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity onPress={() => console.log('Video Placeholder')}>
+                        <View style={styles.additionalOption}>
+                            <Icon name="video-camera" style={styles.additionalOptionIcon} />
+                        </View>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity onPress={() => console.log('Companions Placeholder')}>
+                        <View style={styles.additionalOption}>
+                            <Icon name="users" style={styles.additionalOptionIcon} />
+                        </View>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity onPress={() => console.log('Fees Placeholder')}>
+                        <View style={styles.additionalOption}>
+                            <Icon name="dollar" style={styles.additionalOptionIcon} />
+                        </View>
+                    </TouchableOpacity>
+                </View>
+
                 <View style={styles.inputContainer}>
                     {imageContent}
                     <MainText style={{
@@ -70,13 +99,6 @@ const BookmarkPlace = props => {
                     }}>
                         You need to at least insert the place's name and its location in order to bookmark it.
                     </MainText>
-                    <CustomButton
-                        pressAction={triggerImagePicker}
-                        icon="picture-o"
-                        containerStyle={{ backgroundColor: '#eee', paddingVertical: 11 }}
-                        textStyle={{ color: '#bbb', fontWeight: '400' }}
-                        iconStyle={{ color: '#bbb' }}
-                    >Upload Place Image</CustomButton>
                     <CustomInput
                         placeholder="Insert place's name ..."
                         value={placeName}
@@ -86,7 +108,7 @@ const BookmarkPlace = props => {
                     {errorOccured
                         ? <FeedbackMessage message="You cannot insert empty place's name" type="error" />
                         : null}
-                    {submitPlaceLoading ? <ActivityIndicator />  : (<CustomButton
+                    {submitPlaceLoading ? <ActivityIndicator /> : (<CustomButton
                         pressAction={addBookmarkHandler}
                         icon="plus"
                         disabled={!placeName || !locationPicked || !selectedImage}
