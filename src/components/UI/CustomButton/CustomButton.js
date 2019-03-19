@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet, View } from 'react-native';
+import { TouchableOpacity, StyleSheet, View, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import MainText from '../MainText/MainText';
@@ -16,10 +16,12 @@ const CustomButton = ({
     icon,
     iconStyle,
     disabled,
+    showIndicator,
 }) => disabled ? (
     <View
         style={[styles.button, { backgroundColor: '#ccc' }]}
     >
+        {showIndicator ? <ActivityIndicator color="white" style={styles.indicator} /> : null}
         <MainText style={[styles.buttonText, textStyle]}>{children}</MainText>
         {icon && <Icon name={icon} style={[styles.buttonIcon, iconStyle]} />}
     </View>
@@ -28,9 +30,10 @@ const CustomButton = ({
                 onPress={pressAction}
                 style={[styles.button, containerStyle]}
             >
-                <MainText style={[styles.buttonText, textStyle]}>{children}</MainText>
+                {showIndicator ? <ActivityIndicator color="white" style={styles.indicator} /> : null}
+                < MainText style={[styles.buttonText, textStyle]}>{children}</MainText>
                 {icon && <Icon name={icon} style={[styles.buttonIcon, iconStyle]} />}
-            </TouchableOpacity>
+            </TouchableOpacity >
         );
 
 export default CustomButton;

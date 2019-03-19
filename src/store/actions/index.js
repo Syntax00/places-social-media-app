@@ -9,4 +9,12 @@ export {
     stopSubmitPlaceLoading,
     getPlaces,
 } from './places.actions';
-export { tryLogin } from './auth.actions';
+export {
+    authUser,
+    signUpUser,
+    TRY_AUTH_STARTED,
+    TRY_AUTH_ENDED,
+    LOGIN_ERROR,
+    SIGNUP_ERROR,
+    AUTH_SUCCESS,
+} from './auth.actions';

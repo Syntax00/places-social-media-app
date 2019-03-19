@@ -21,6 +21,9 @@ const CustomButtonStyles = {
         marginHorizontal: 10,
         fontSize: 20,
     },
+    indicator: {
+        marginHorizontal: 20,
+    }
 };
 
 export default CustomButtonStyles;

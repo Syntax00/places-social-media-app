@@ -13,12 +13,12 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import CustomInput from '../../components/UI/CustomInput/CustomInput';
 import CustomButton from '../../components/UI/CustomButton/CustomButton';
+import FeedbackMessage from '../../components/UI/FeedbackMessage/FeedbackMessage';
 import LinedHeading from '../../components/UI/LinedHeading/LinedHeading';
 import LogoBlock from '../../components/UI/LogoBlock/LogoBlock';
 import Aux from '../../components/HOC/Aux';
 
-import startMainApp from '../startTabsScreen';
-import { tryLogin } from '../../store/actions/index';
+import { authUser } from '../../store/actions/index';
 
 import backgroundImage from '../../assets/loginbg.png';
 
@@ -63,8 +63,9 @@ class Auth extends React.Component {
         authMode: 'login',
     }
 
-    loginHandler = () => {
-        const { onTryLogin } = this.props;
+    authHandler = () => {
+        const { onAuth } = this.props;
+        const { authMode } = this.state;
         const {
             inputs: {
                 email: { value: emailValue },
@@ -76,8 +77,7 @@ class Auth extends React.Component {
             password: passwordValue,
         };
 
-        onTryLogin(data);
-        startMainApp();
+        onAuth(data, authMode);
     }
 
     inputChangeHandler = (type, value) => {
@@ -109,7 +109,7 @@ class Auth extends React.Component {
             },
             authMode,
         } = this.state;
-
+        const { signupError, loginError, authSuccessMessage, authLoading } = this.props;
         let backButtonContent;
         let authForm;
         let formHeading;
@@ -158,10 +158,17 @@ class Auth extends React.Component {
                         autoCorrect={false}
                         autoCapitalize="none"
                     />
-
+                    {signupError && !authSuccessMessage
+                        ? <FeedbackMessage type="error" message={signupError} />
+                        : null}
+                    {!signupError && authSuccessMessage
+                        ? <FeedbackMessage type="success" message={authSuccessMessage} />
+                        : null}
                     <CustomButton
-                        pressAction={this.loginHandler}
+                        pressAction={this.authHandler}
                         icon='user-plus'
+                        disabled={authLoading}
+                        showIndicator={authLoading}
                     >Register Now</CustomButton>
                 </View>
             );
@@ -191,9 +198,18 @@ class Auth extends React.Component {
                         secureTextEntry={true}
                         autoCapitalize="none"
                     />
+                    {loginError && !authSuccessMessage
+                        ? <FeedbackMessage type="error" message={loginError} />
+                        : null}
+                    {!loginError && authSuccessMessage
+                        ? <FeedbackMessage type="success" message={authSuccessMessage} />
+                        : null}
+
                     <CustomButton
-                        pressAction={this.loginHandler}
+                        pressAction={this.authHandler}
                         icon='sign-in'
+                        disabled={authLoading}
+                        showIndicator={authLoading}
                     >Login Now</CustomButton>
                 </View>
             );
@@ -241,8 +257,15 @@ class Auth extends React.Component {
     };
 }
 
+const mapStateToProps = state => ({
+    loginError: state.authReducer.loginErrorMessage,
+    signupError: state.authReducer.signupErrorMessage,
+    authSuccessMessage: state.authReducer.successMessage,
+    authLoading: state.authReducer.loading,
+});
+
 const mapDispatchToProps = dispatch => ({
-    onTryLogin: (loginData) => dispatch(tryLogin(loginData)),
+    onAuth: (authData, authMode) => dispatch(authUser(authData, authMode)),
 })
 
-export default connect(null, mapDispatchToProps)(Auth);
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);

@@ -3,10 +3,12 @@ import thunk from 'redux-thunk';
 
 import placesReducer from './reducers/places.reducer';
 import uiReducer from './reducers/ui.reducer';
+import authReducer from './reducers/auth.reducer';
 
 const rootReducer = combineReducers({
     placesReducer,
     uiReducer,
+    authReducer,
 });
 let composeEnhancers = compose;
 
