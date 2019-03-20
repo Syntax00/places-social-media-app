@@ -6,6 +6,7 @@ export const TRY_AUTH_ENDED = 'TRY_AUTH_ENDED';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
 export const SIGNUP_ERROR = 'SIGNUP_ERROR';
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
+export const SET_TOKEN = 'SET_TOKEN';
 
 export const authUser = (authData, authMode) => {
     return dispatch => {
@@ -29,19 +30,19 @@ export const signUpUser = (userData) => {
             }),
             'Content-Type': 'application/json',
         })
-            .catch(error => {
-                dispatch(tryAuthEnd());
-                console.log(error);
-            })
             .then(response => response.json())
             .then(parsedResponse => {
-                console.log('parsedResponse', parsedResponse);
                 dispatch(tryAuthEnd());
                 if (parsedResponse.error) dispatch(signupErrorOccured(parsedResponse.error.message));
                 else {
                     startMainApp();
+                    dispatch(setToken(parsedResponse.idToken));
                     dispatch(authSuccess("Account registered successfully."));
                 }
+            })
+            .catch(error => {
+                dispatch(tryAuthEnd());
+                console.log(error);
             })
     }
 }
@@ -58,19 +59,19 @@ export const loginUser = (userData) => {
             }),
             'Content-Type': 'application/json',
         })
-            .catch(error => {
-                dispatch(tryAuthEnd());
-                console.log(error);
-            })
             .then(response => response.json())
             .then(parsedResponse => {
-                console.log('parsedResponse', parsedResponse);
                 dispatch(tryAuthEnd());
                 if (parsedResponse.error) dispatch(loginErrorOccured(parsedResponse.error.message));
                 else {
                     startMainApp();
+                    dispatch(setToken(parsedResponse.idToken));
                     dispatch(authSuccess("Logging you in."));
                 }
+            })
+            .catch(error => {
+                dispatch(tryAuthEnd());
+                console.log(error);
             })
     }
 }
@@ -106,7 +107,13 @@ export const signupErrorOccured = (error) => {
         errorMessage,
     }
 }
+
 export const authSuccess = (successMessage) => ({
     type: AUTH_SUCCESS,
     successMessage,
 });
+
+export const setToken = (token) => ({
+    type: SET_TOKEN,
+    token,
+})

@@ -17,4 +17,5 @@ export {
     LOGIN_ERROR,
     SIGNUP_ERROR,
     AUTH_SUCCESS,
+    SET_TOKEN,
 } from './auth.actions';

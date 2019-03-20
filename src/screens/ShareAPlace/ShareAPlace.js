@@ -124,7 +124,7 @@ class ShareAPlace extends React.Component {
         this.setState({
             loadingImage: true,
         });
-        ImagePicker.showImagePicker({ title: 'Select Place\'s Image' }, response => {
+        ImagePicker.showImagePicker({ title: 'Select Place\'s Image', maxWidth: 800, maxHeight: 500 }, response => {
             if (response.didCancel) {
                 console.log('Image picker has been cancelled');
                 this.setState({

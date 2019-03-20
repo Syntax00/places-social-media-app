@@ -21,6 +21,7 @@ class FindPlaces extends React.Component {
 
     componentDidMount() {
         const { getPlacesData } = this.props;
+        
         getPlacesData();
     }
 

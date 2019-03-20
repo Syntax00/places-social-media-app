@@ -3,7 +3,8 @@ import {
     TRY_AUTH_ENDED,
     LOGIN_ERROR,
     SIGNUP_ERROR,
-    AUTH_SUCCESS
+    AUTH_SUCCESS,
+    SET_TOKEN,
 } from '../actions/index';
 
 const initialState = {
@@ -11,6 +12,7 @@ const initialState = {
     loginErrorMessage: null,
     signupErrorMessage: null,
     successMessage: null,
+    token: null,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -42,6 +44,11 @@ const authReducer = (state = initialState, action) => {
                 ...state,
                 errorMessage: null,
                 successMessage: action.successMessage,
+            };
+        case SET_TOKEN:
+            return {
+                ...state,
+                token: action.token,
             };
         default:
             return state;

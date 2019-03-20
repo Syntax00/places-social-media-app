@@ -5,9 +5,11 @@ export const SET_PLACES = 'SET_PLACES';
 
 export const addPlace = (placeData) => {
     delete placeData.placeImage.base64
-    return dispatch => {
+    return (dispatch, getState) => {
+        const token = getState().authReducer.token;
+
         dispatch(startSubmitPlaceLoading());
-        fetch("https://places-app-96f2d.firebaseio.com/places.json", {
+        fetch(`https://places-app-96f2d.firebaseio.com/places.json`, {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -15,24 +17,27 @@ export const addPlace = (placeData) => {
             },
             body: JSON.stringify(placeData),
         })
-            .catch(error => dispatch(stopSubmitPlaceLoading()))
             .then(res => res.json())
             .then(parsedResponse => {
                 dispatch(stopSubmitPlaceLoading());
                 dispatch(getPlaces());
             })
+            .catch(error => dispatch(stopSubmitPlaceLoading()))
     }
 };
 
 export const getPlaces = () => {
-    return dispatch => {
-        fetch("https://places-app-96f2d.firebaseio.com/places.json")
-            .catch(error => console.log('error', error))
+    return (dispatch, getState) => {
+        const token = getState().authReducer.token;
+        console.log('token', token)
+        fetch(`https://places-app-96f2d.firebaseio.com/places.json`)
             .then(res => res.json())
             .then(parsedResponse => {
+                console.log('parsedResponse[places]', parsedResponse)
                 const placesArray = Object.keys(parsedResponse).map(key => parsedResponse[key]);
                 dispatch(setPlaces(placesArray));
             })
+            .catch(error => console.log('error', error))
     }
 }
 
