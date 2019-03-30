@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Image, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Image, ActivityIndicator, TouchableOpacity, ScrollView } from 'react-native';
 import MapView from 'react-native-maps';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -31,10 +31,16 @@ const BookmarkPlace = props => {
     } = props;
     let imageContent;
 
-    if (loadingImage) {
+    if (loadingImage && selectedImage.length === 0) {
         imageContent = <ActivityIndicator size="small" color="#ccc" />;
     } else {
-        imageContent = selectedImage && <Image source={selectedImage} style={{ width: '100%', height: 200, borderRadius: 10 }} />
+        imageContent = selectedImage && selectedImage.map((image, index) => {
+            return <Image
+                source={image}
+                style={{ width: 40, height: 40, borderRadius: 0, marginHorizontal: 7, borderRadius: 4 }}
+                key={index}
+            />
+        });
     }
 
     return (
@@ -89,7 +95,6 @@ const BookmarkPlace = props => {
                 </View>
 
                 <View style={styles.inputContainer}>
-                    {imageContent}
                     <MainText style={{
                         paddingVertical: 10,
                         paddingHorizontal: 5,
@@ -105,6 +110,20 @@ const BookmarkPlace = props => {
                         onChangeText={changePlaceHandler}
                         style={{ backgroundColor: '#eee', textAlign: 'center', paddingLeft: 0 }}
                     />
+                    <ScrollView
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                        style={{ alignSelf: 'flex-start' }}
+                    >
+                        <View style={styles.imagesContainer}>
+                            {imageContent}
+                            <TouchableOpacity onPress={triggerImagePicker}>
+                                <View style={styles.addImage}>
+                                    <Icon name="plus" style={styles.addImageIcon} />
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                    </ScrollView>
                     {errorOccured
                         ? <FeedbackMessage message="You cannot insert empty place's name" type="error" />
                         : null}

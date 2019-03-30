@@ -42,6 +42,29 @@ const BookmarkPlaceStyles = {
         margin: 0,
         padding: 0,
     },
+    imagesContainer: {
+        flex: 1,
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        marginVertical: 8,
+    },
+    addImage: {
+        backgroundColor: '#eee',
+        width: 45,
+        height: 45,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 4,
+    },
+    addImageIcon: {
+        alignSelf: 'center',
+        fontSize: 16,
+        color: '#aaa',
+        margin: 0,
+        padding: 0,
+    },
 };
 
 export default BookmarkPlaceStyles;

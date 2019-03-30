@@ -1,3 +1,5 @@
+import { AsyncStorage } from 'react-native';
+
 import startMainApp from '../../screens/startTabsScreen';
 
 export const TRY_LOGIN = 'TRY_LOGIN';
@@ -37,6 +39,7 @@ export const signUpUser = (userData) => {
                 else {
                     startMainApp();
                     dispatch(setToken(parsedResponse.idToken));
+                    AsyncStorage.setItem('@auth:auth', 'true');
                     dispatch(authSuccess("Account registered successfully."));
                 }
             })
@@ -66,6 +69,7 @@ export const loginUser = (userData) => {
                 else {
                     startMainApp();
                     dispatch(setToken(parsedResponse.idToken));
+                    AsyncStorage.setItem('@auth:auth', 'true');
                     dispatch(authSuccess("Logging you in."));
                 }
             })

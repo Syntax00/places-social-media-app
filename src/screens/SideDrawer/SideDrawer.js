@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Dimensions, SafeAreaView, ScrollView } from 'react-native';
+import { View, StyleSheet, Dimensions, SafeAreaView, ScrollView, AsyncStorage } from 'react-native';
 
 import CustomButton from '../../components/UI/CustomButton/CustomButton';
 import ProfileShortcut from '../../components/SideDrawer/ProfileShortcut/ProfileShortcut';
@@ -7,6 +7,8 @@ import Statistics from '../../components/SideDrawer/Statistics/Statistics';
 import NavigationItems from '../../components/SideDrawer/NavigationItems/NavigationItems';
 
 import profilePicture from '../../assets/profilePic.jpg';
+
+import startLoginScreen from '../startLoginScreen';
 
 import SideDrawerStyles from './SideDrawerStyles';
 
@@ -66,6 +68,10 @@ const SideDrawer = () => (
 
             <View style={styles.logoutContainer}>
                 <CustomButton
+                    pressAction={() => {
+                        AsyncStorage.setItem('@auth:auth', 'false');
+                        startLoginScreen();
+                    }}
                     containerStyle={styles.logoutButton}
                     icon="sign-out"
                 >Logout</CustomButton>

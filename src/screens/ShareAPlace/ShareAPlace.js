@@ -48,7 +48,7 @@ class ShareAPlace extends React.Component {
             longitudeDelta: Dimensions.get('window').width / Dimensions.get('window').height * 0.0122,
         },
         locationPicked: false,
-        selectedImage: null,
+        selectedImage: [],
         loadingImage: false,
     };
 
@@ -136,10 +136,10 @@ class ShareAPlace extends React.Component {
                     loadingImage: false,
                 });
             } else {
-                this.setState({
-                    selectedImage: { uri: response.uri, base64: response.data },
+                this.setState(prevState => ({
+                    selectedImage: prevState.selectedImage.concat({ uri: response.uri, base64: response.data }),
                     loadingImage: false,
-                });
+                }));
             }
         })
     }
