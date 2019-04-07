@@ -2,6 +2,7 @@ export const DELETE_PLACE = 'DELETE_PLACE';
 export const START_SUBMIT_PLACE_LOADING = 'START_SUBMIT_PLACE_LOADING';
 export const STOP_SUBMIT_PLACE_LOADING = 'STOP_SUBMIT_PLACE_LOADING';
 export const SET_PLACES = 'SET_PLACES';
+export const PLACE_SUBMIT_STATUS = 'PLACE_SUBMIT_STATUS';
 
 export const addPlace = (placeData) => {
     delete placeData.placeImage.base64
@@ -21,8 +22,12 @@ export const addPlace = (placeData) => {
             .then(parsedResponse => {
                 dispatch(stopSubmitPlaceLoading());
                 dispatch(getPlaces());
+                dispatch(placeSubmitPopup('success'));
             })
-            .catch(error => dispatch(stopSubmitPlaceLoading()))
+            .catch(error => {
+                dispatch(stopSubmitPlaceLoading());
+                dispatch(placeSubmitPopup('failure'));
+            })
     }
 };
 
@@ -47,6 +52,11 @@ export const startSubmitPlaceLoading = () => ({
 
 export const stopSubmitPlaceLoading = () => ({
     type: STOP_SUBMIT_PLACE_LOADING,
+});
+
+export const placeSubmitPopup = (status) => ({
+    type: PLACE_SUBMIT_STATUS,
+    status,
 });
 
 export const setPlaces = (places) => ({

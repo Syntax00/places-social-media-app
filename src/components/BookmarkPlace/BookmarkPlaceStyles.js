@@ -65,6 +65,10 @@ const BookmarkPlaceStyles = {
         margin: 0,
         padding: 0,
     },
+    popupContent: { justifyContent: 'center', alignItems: 'center' },
+    popupImage: { width: 100, height: 100 },
+    popupTextContainer: { marginVertical: 12 },
+    popupDescriptionText: { textAlign: 'center', fontSize: 12 },
 };
 
 export default BookmarkPlaceStyles;

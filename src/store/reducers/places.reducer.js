@@ -1,10 +1,12 @@
 import {
     DELETE_PLACE,
     SET_PLACES,
+    PLACE_SUBMIT_STATUS,
 } from '../actions/index';
 
 const initialState = {
     bookmarks: [],
+    submitPlaceStatus: null,
 };
 
 const placesReducer = (state = initialState, action) => {
@@ -18,6 +20,11 @@ const placesReducer = (state = initialState, action) => {
             return {
                 ...state,
                 bookmarks: [...action.places],
+            };
+        case PLACE_SUBMIT_STATUS:
+            return {
+                ...state,
+                submitPlaceStatus: action.status,
             };
         default:
             return state;

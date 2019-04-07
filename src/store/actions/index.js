@@ -3,11 +3,13 @@ export {
     START_SUBMIT_PLACE_LOADING,
     STOP_SUBMIT_PLACE_LOADING,
     SET_PLACES,
+    PLACE_SUBMIT_STATUS,
     addPlace,
     deletePlace,
     startSubmitPlaceLoading,
     stopSubmitPlaceLoading,
     getPlaces,
+    placeSubmitPopup,
 } from './places.actions';
 export {
     authUser,

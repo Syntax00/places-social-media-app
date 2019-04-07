@@ -205,6 +205,7 @@ class ShareAPlace extends React.Component {
                                 selectedImage={selectedImage}
                                 triggerImagePicker={this.pickPlaceImageHandler}
                                 loadingImage={loadingImage}
+                                navigator={navigator}
                             />
                         </View>
                     </ScrollView>

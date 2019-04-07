@@ -31,7 +31,7 @@ const CustomButton = ({
                 style={[styles.button, containerStyle]}
             >
                 {showIndicator ? <ActivityIndicator color="white" style={styles.indicator} /> : null}
-                < MainText style={[styles.buttonText, textStyle]}>{children}</MainText>
+                <MainText style={[styles.buttonText, textStyle]}>{children}</MainText>
                 {icon && <Icon name={icon} style={[styles.buttonIcon, iconStyle]} />}
             </TouchableOpacity >
         );

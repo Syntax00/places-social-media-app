@@ -8,9 +8,16 @@ import ShadowedWrapper from '../UI/ShadowedWrapper/ShadowedWrapper';
 import CustomInput from '../UI/CustomInput/CustomInput';
 import CustomButton from '../UI/CustomButton/CustomButton';
 import MainText from '../UI/MainText/MainText';
+import HeadingText from '../UI/HeadingText/HeadingText';
+import FeedbackMessage from '../UI/FeedbackMessage/FeedbackMessage';
+import CustomDialog from '../UI/CustomDialog/CustomDialog';
+
+import { placeSubmitPopup } from '../../store/actions/index';
+
+import Frown from '../../assets/frown.png';
+import Happy from '../../assets/happy.png';
 
 import BookmarkPlaceStyles from './BookmarkPlaceStyles';
-import FeedbackMessage from '../UI/FeedbackMessage/FeedbackMessage';
 
 const styles = StyleSheet.create(BookmarkPlaceStyles);
 
@@ -28,8 +35,11 @@ const BookmarkPlace = props => {
         triggerImagePicker,
         loadingImage,
         submitPlaceLoading,
+        submitPlaceStatus,
+        onDismissModal,
     } = props;
     let imageContent;
+    let popupContent;
 
     if (loadingImage && selectedImage.length === 0) {
         imageContent = <ActivityIndicator size="small" color="#ccc" />;
@@ -43,6 +53,83 @@ const BookmarkPlace = props => {
         });
     }
 
+    if (submitPlaceStatus === 'success') {
+        popupContent = (
+            <View style={styles.popupContent}>
+                <Image source={Happy} style={styles.popupImage} />
+                <View style={styles.popupTextContainer}>
+                    <HeadingText>Neaaaat! Place has been shared!</HeadingText>
+                    <MainText style={styles.popupDescriptionText}>
+                        Your place has been successfully shared. You can stay tuned for your network to start interacting!
+                    </MainText>
+                </View>
+                <View style={{ flexDirection: 'row' }}>
+                    <CustomButton
+                        pressAction={() => {
+                            props.navigator.push({
+                                screen: 'places-bookmarker.FindPlaces',
+                                title: 'My Favorite Places',
+                                animated: true,
+                                animationType: 'fade',
+                            });
+                            onDismissModal();
+                        }}
+                        icon='eye'
+                        iconStyle={{ marginHorizontal: 5 }}
+                        containerStyle={{
+                            width: '48%',
+                            paddingVertical: 8,
+                            shadowColor: '#ccc',
+                            shadowOffset: { width: 0, height: 3 },
+                            shadowOpacity: 0.6,
+                            shadowRadius: 5,
+                            marginHorizontal: 4,
+                        }}
+                    >My Places</CustomButton>
+                    <CustomButton
+                        pressAction={() => onDismissModal()}
+                        icon='times'
+                        iconStyle={{ marginHorizontal: 5 }}
+                        containerStyle={{
+                            width: '38%',
+                            paddingVertical: 8,
+                            backgroundColor: '#f64f58',
+                            shadowColor: '#ccc',
+                            shadowOffset: { width: 0, height: 3 },
+                            shadowOpacity: 0.6,
+                            shadowRadius: 5,
+                            marginHorizontal: 4,
+                        }}
+                    >Close</CustomButton>
+                </View>
+            </View>
+        );
+    } else if (submitPlaceStatus === 'failure') {
+        popupContent = (
+            <View style={styles.popupContent}>
+                <Image source={Frown} style={styles.popupImage} />
+                <View style={styles.popupTextContainer}>
+                    <HeadingText>Sooorry! Failed to share your place!</HeadingText>
+                    <MainText style={styles.popupDescriptionText}>
+                        That might be because you have some issues with your Internet connection or our server is currently down!
+                    </MainText>
+                </View>
+                <CustomButton
+                    pressAction={() => onDismissModal()}
+                    icon='frown-o'
+                    containerStyle={{
+                        width: '60%',
+                        paddingVertical: 8,
+                        backgroundColor: '#f64f58',
+                        shadowColor: '#ccc',
+                        shadowOffset: { width: 0, height: 3 },
+                        shadowOpacity: 0.6,
+                        shadowRadius: 5,
+                    }}
+                >Okay</CustomButton>
+            </View>
+        );
+    }
     return (
         <View style={styles.bookmarkContainer}>
             <ShadowedWrapper>
@@ -54,6 +141,13 @@ const BookmarkPlace = props => {
                 >
                     {locationPicked && <MapView.Marker coordinate={focusedRegion} />}
                 </MapView>
+
+                <CustomDialog
+                    isVisible={submitPlaceStatus}
+                    dismissAction={onDismissModal}
+                >
+                    {popupContent}
+                </CustomDialog>
 
                 <CustomButton
                     pressAction={locateMeHandler}
@@ -141,6 +235,10 @@ const BookmarkPlace = props => {
 
 const mapStateToProps = state => ({
     submitPlaceLoading: state.uiReducer.submitPlaceLoading,
+    submitPlaceStatus: state.placesReducer.submitPlaceStatus,
 });
+const mapDispatchToProps = dispatch => ({
+    onDismissModal: () => dispatch(placeSubmitPopup(null)),
+})
 
-export default connect(mapStateToProps)(BookmarkPlace);
+export default connect(mapStateToProps, mapDispatchToProps)(BookmarkPlace);
