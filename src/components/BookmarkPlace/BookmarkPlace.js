@@ -56,7 +56,9 @@ const BookmarkPlace = props => {
     if (submitPlaceStatus === 'success') {
         popupContent = (
             <View style={styles.popupContent}>
-                <Image source={Happy} style={styles.popupImage} />
+                <View style={styles.popupImageContainer}>
+                    <Image source={Happy} style={styles.popupImage} />
+                </View>
                 <View style={styles.popupTextContainer}>
                     <HeadingText>Neaaaat! Place has been shared!</HeadingText>
                     <MainText style={styles.popupDescriptionText}>
@@ -107,7 +109,9 @@ const BookmarkPlace = props => {
     } else if (submitPlaceStatus === 'failure') {
         popupContent = (
             <View style={styles.popupContent}>
-                <Image source={Frown} style={styles.popupImage} />
+                <View style={styles.popupImageContainer}>
+                    <Image source={Frown} style={styles.popupImage} />
+                </View>
                 <View style={styles.popupTextContainer}>
                     <HeadingText>Sooorry! Failed to share your place!</HeadingText>
                     <MainText style={styles.popupDescriptionText}>
