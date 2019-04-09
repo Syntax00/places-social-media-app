@@ -21,7 +21,7 @@ class FindPlaces extends React.Component {
 
     componentDidMount() {
         const { getPlacesData } = this.props;
-        
+
         getPlacesData();
     }
 
@@ -55,7 +55,7 @@ class FindPlaces extends React.Component {
         return (
             <SafeAreaView style={{ flex: 1 }}>
                 <View style={styles.container}>
-                   
+
                     {bookmarks.length > 0
                         ? <PlacesList
                             bookmarks={bookmarks}
